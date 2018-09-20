@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       code: { type: DataTypes.STRING(100) },
       name: { type: DataTypes.STRING(100) },
       gender: { type: DataTypes.STRING(10) },
-      age: { type: DAtaTypes.TINYINT }
+      age: { type: DataTypes.TINYINT }
     },
     {
       tableName: "test_data_table",
