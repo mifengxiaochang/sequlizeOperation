@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "koa": "^2.5.3",
+    "koa-orm": "^2.3.0",
+    "koa-router": "^7.4.0",
+    "mysql2": "^1.6.1",
+    "sequelize": "4.38.1",
+    "sequelize-cli": "4.1.1"
+  },
+  "name": "ddd",
+  "description": "- sequelize操作数据库",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "jessie",
+  "license": "ISC"
+}
