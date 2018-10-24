@@ -35,6 +35,43 @@ module.exports = {
     };
     ctx.res.ok(data, "success");
   },
+  // 查找或创建
+  findOrCreate: async ctx => {
+    const { Test1 } = ctx.orm();
+    // 在这个方法中，如果options对象中没有传入事务，默认会在内部自动创建一个新的事务，
+    // 以防止在创建完成之前有新匹配查询进入。
+    await Test1.findOrCreate({
+      where: {
+        id: 4
+      }
+    });
+    // 效率更高的findOrCreate，默认不会在事务中执行。
+    //首先会尝试进行查询，如果为空则尝试创建，如果是唯一约束则尝试再次查找。
+    await Test1.findCreateFind({
+      where: {
+        id: 4
+      }
+    });
+    // 创建或更新一行。如果匹配到主键或唯一约束键时会进行更新。
+    await Test1.upsert({
+      where: {
+        id: 4
+      }
+    });
+    // 删除多个实例，或设置deletedAt的时间戳为当前时间（当启用paranoid时）
+
+    // 执行成功后返回被删除的行数
+    // await Test1.destroy();
+
+    // 更新记录
+    // const {
+    //   department,
+    // } = ctx;
+    // const toUpdate = ctx.request.body;
+    // if (!ctx.res.checkParams(toUpdate)) return;
+    // const rst = await department.update(toUpdate);
+    // ctx.res.ok(rst, 'success');
+  },
 
   // findAll - 从数据库中查找多个元素
   findAll: async ctx => {
@@ -44,7 +81,7 @@ module.exports = {
     let data = {};
 
     //查找所有数据
-    data = await Test1.findAll();
+    data = await Test1.findAll(); //logging:true 打印执行SQL语句
 
     // all是findAll的别名方法:
     Test1.all().then(function(projects) {
@@ -87,6 +124,19 @@ module.exports = {
           $not: false // status NOT FALSE
         }
       }
+    });
+
+    Test1.findAll({
+      include: [
+        {
+          model: Project,
+          // Belongs-To-Many 可以基于through关系查询并可以选择查询属性
+          through: {
+            attributes: ["createdAt", "startedAt", "finishedAt"],
+            where: { completed: true }
+          }
+        }
+      ]
     });
 
     /**** IN/OR 等复合筛选stat****/

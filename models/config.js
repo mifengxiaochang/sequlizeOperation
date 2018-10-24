@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
   Config.sync(); //同步模型到数据库
 
   // // 强制创建
+  // Model.sync()只会同步当前模型到数据库中，而sequelize.sync()会同步sequelize实例中定义所有模型。
   // // 通过设置 force 属性会首先删除表并重新创建
   // Config.sync({ force: true });
 

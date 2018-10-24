@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(modules) {
     this.hasMany(modules.Task, { foreignKey: "user_id" }); //, as: "task"
-    this.hasMany(modules.Tool, { as: "Instruments" }); //别名
+    this.hasMany(modules.Tool, { as: "Instruments", foreignKey: "user_id" }); //别名
+
+    this.belongsToMany(modules.Project, { through: "UserProjects" });
   };
   User.sync(); //{ force: true }
   return User;

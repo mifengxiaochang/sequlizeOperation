@@ -1,7 +1,7 @@
 module.exports = {
   bulkCreate: async ctx => {
     console.log("bulk start");
-    const { Task, User } = ctx.orm(); //获取建立的模型
+    const { Task, User, Tool } = ctx.orm(); //获取建立的模型
     // const rst = await
     // Task.bulkCreate([
     //   { id: 1, name: "JD", userId: 1 },
@@ -11,9 +11,15 @@ module.exports = {
     //   { id: 5, name: "hj", userId: 1 }
     // ]);
     // 如果主键重复可能添加数据失败，在sync中写sync({force:true})覆盖数据
-    User.bulkCreate([
-      { name: "23", gender: "male", age: 23, id: 1 },
-      { name: "efer", gender: "female", age: 26, id: 2 }
+    // User.bulkCreate([
+    //   { name: "23", gender: "male", age: 23, id: 1 },
+    //   { name: "efer", gender: "female", age: 26, id: 2 }
+    // ]);
+
+    Tool.bulkCreate([
+      { name: "tool1", id: 1, userId: 1 },
+      { name: "tool2", id: 2, userId: 1 },
+      { name: "tool3", id: 3, userId: 2 }
     ]);
     // console.log(rst); //sequlize 实例
     // console.log(JSON.stringify(rst));//数据
